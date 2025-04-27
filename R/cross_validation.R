@@ -1,7 +1,7 @@
 #' Generate Cross-Validation Splits with Approximately Equal Fold Sizes
 #'
-#' Creates a list of indices that partition \code{1:N} into approximately equal-sized subsets for use in K-fold cross-validation.
-#' The function ensures that the folds are randomly ordered and differ in size by at most one.
+#' Creates a list of indices that partition \code{1:N} into approximately equal-sized subsets for K-fold cross-validation.
+#' The function ensures folds are randomly ordered and differ in size by at most one.
 #'
 #' @param N Integer. Total number of samples to be split.
 #' @param n.folds Integer. Number of cross-validation folds. Defaults to \code{5}.
@@ -12,17 +12,16 @@
 #' The function ensures:
 #' \itemize{
 #'   \item Fold sizes differ by at most one.
-#'   \item Samples are randomly shuffled before assignment to folds.
-#'   \item Useful in K-fold cross-validation for supervised learning tasks.
+#'   \item Samples are randomly shuffled using \code{\link[stats]{sample}}.
 #' }
 #'
 #' @examples
 #' set.seed(123)
 #' folds <- cv.split(23, n.folds = 5)
-#' sapply(folds, length)  # check size distribution
-#' unlist(folds)          # ensure full coverage of 1:23
+#' sapply(folds, length)  # Check fold sizes (e.g., 5, 5, 5, 4, 4)
+#' unlist(folds)          # Verify all indices 1:23 are included
 #'
-#' @seealso \code{\link[stats]{sample}}, \code{\link[caret]{createFolds}} in other ML packages
+#' @seealso \code{\link[stats]{sample}} for random permutation.
 #'
 #' @export
 cv.split <- function(N, n.folds=5) {

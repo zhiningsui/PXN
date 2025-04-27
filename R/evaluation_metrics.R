@@ -22,7 +22,6 @@
 #' MSE1(est, truth)
 #' MSE1(est, truth, relative = TRUE)
 #'
-#' @seealso \code{\link[base]{mean}}, \code{\link[metrics]{rmse}} from other packages
 #' @export
 MSE1  <-  function(est, truth, relative=FALSE){
   total.mse <- sum((est - truth)^2, na.rm=TRUE)
