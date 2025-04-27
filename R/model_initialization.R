@@ -47,6 +47,7 @@
 #' @seealso \code{\link{InitEst.LargeSTD}}, \code{\link{BetaEst}}, \code{\link{rowVars}}
 #'
 #' @importFrom Rfast rowVars
+#' @importFrom Rfast rowMins
 #' @export
 InitEst <- function(X, Y, K, L, min.sigma2=0.01, min.sigmaU2=0.05, p.correct=TRUE){
   # In the case when there is only one covariate and X is not a matrix.
