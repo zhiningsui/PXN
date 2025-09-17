@@ -48,6 +48,8 @@
 #'
 #' @importFrom Rfast rowVars
 #' @importFrom Rfast rowMins
+#' @importFrom Rfast rowmeans
+#' @importFrom Rfast rowsums
 #' @export
 InitEst <- function(X, Y, K, L, min.sigma2=0.01, min.sigmaU2=0.05, p.correct=TRUE){
   # In the case when there is only one covariate and X is not a matrix.
@@ -146,6 +148,7 @@ InitEst <- function(X, Y, K, L, min.sigma2=0.01, min.sigmaU2=0.05, p.correct=TRU
 #'
 #' @seealso \code{\link{InitEst}}, \code{\link{gppca}}, \code{\link{BetaEst}}, \code{\link{Ycircbar2Cov}}
 #'
+#' @importFrom Rfast rowmeans
 #' @export
 InitEst.LargeSTD <- function(X, Y, K, L, min.sigma2=0.01, min.sigmaU2=0.05, W=0.5, p.correct=TRUE){
   N <- ncol(Y); m <- nrow(Y)/K
@@ -156,7 +159,6 @@ InitEst.LargeSTD <- function(X, Y, K, L, min.sigma2=0.01, min.sigmaU2=0.05, W=0.
   ## center both X and Y
   R0 <- Y-b0hat
   if (!is.null(X)) {
-    # Edited by Zhining. In the case when there is only one covariate and X is not a matrix.
     if((!is.matrix(X))) {
       X <- matrix(X, nrow = 1)
     }
@@ -164,7 +166,7 @@ InitEst.LargeSTD <- function(X, Y, K, L, min.sigma2=0.01, min.sigmaU2=0.05, W=0.
     Xc <- X-rowmeans(X)
     ## regress out X
     HatMat <- rhat(t(Xc))
-    R0 <- R0%*%(diag(N)-HatMat)
+    R0 <- R0 %*% (diag(N)-HatMat)
     ## After this step, R0 is the set of residuals, which is denoted as
     ## R^{(0)} in my notes. Again, no new object is created to save
     ## memory

@@ -1,15 +1,16 @@
-Package: PPCAXNORM
+Package: PXN
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Probabilistic Principal Component Analysis for Cross-Platform Normalization
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Your Name <your.email@example.com>
+Maintainer: Your Name <your.email@example.com>
+Description: Implements a probabilistic principal component analysis (PPCA) based model for normalizing data from multiple platforms. This package is particularly useful for integrating and normalizing high-dimensional biological data, such as gene expression data from different microarray or sequencing platforms. It provides functions for model training, prediction, and evaluation, including cross-validation and parameter estimation.
+URL: https://github.com/yourusername/PPCAXNORM
+BugReports: https://github.com/yourusername/PPCAXNORM/issues
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-Imports:
+Imports: 
     Rfast,
     stats,
     graphics,
@@ -17,5 +18,8 @@ Imports:
     matrixStats,
     grDevices
 RoxygenNote: 7.3.2
-Depends:
-    R (>= 4.0.0)
+Depends: R (>= 4.0.0)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

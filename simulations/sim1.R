@@ -1,7 +1,7 @@
 library(MatchMixeR)
 library(PPCAXNORM)
 
-load("data/simulated_dataset.RData")
+load("../data/simulated_dataset.RData")
 
 ######################################################################
 ## Analysis I. Compare the performance of PPCA-XPN with MM, OLS for
@@ -166,7 +166,8 @@ YtoPlot$OLS <- as.vector(YBhat.OLS[genes,]); YtoPlot$MM <- as.vector(YBhat.MM[ge
 
 mses1 <- round(c(YA=MSEs.YA, OLS=MSEs.OLS, MM=MSEs.MM, c(MSEs.PPCA[paste0("L=", Lstars[["AB"]], ".1->2"),])), 4)
 
-
+colnames(YA) <- paste0(colnames(YA), "_A")
+colnames(YB) <- paste0(colnames(YB), "_B")
 
 ######################################################################
 ## save useful analytic results for making plots/tables
@@ -174,3 +175,152 @@ mses1 <- round(c(YA=MSEs.YA, OLS=MSEs.OLS, MM=MSEs.MM, c(MSEs.PPCA[paste0("L=", 
 save(est1, m, X, Beta, K.all, PFs, DS, ns, b0s, b1s, Ls, t1, t2, t3, t4, mses1, MSEs.PPCA, MSEs.MM, MSEs.OLS, YtoPlot, CVMSEs2, best.Ls, ddmat, Ests, genes, Lstars, Lmean, t7, MSEtab3, BCD.MSEs, ss10.all, mses3.nonorm, MSES3, rr4a, rr4b, tabs4a, tabs4b, file="results/sim1-results.rda")
 
 
+
+#  Run pairwise normalization for all three pairs ------------------------
+
+load("../data/simulated_dataset.RData")
+
+m = 1000
+Ys <- list(
+  YA = Ys$AB[1:m,],
+  YB = Ys$AB[(m+1):(2*m),],
+  YC = Ys$BCD[(m+1):(2*m),],
+  YD = Ys$BCD[(2*m+1):(3*m),],
+  YE = Ys$EF[1:m,],
+  YF = Ys$EF[(m+1):(2*m),]
+)
+
+PFs <- list(
+  "AB" = c("YA", "YB"),
+  "BC" = c("YB", "YC"),
+  "BD" = c("YB", "YD"),
+  "CD" = c("YC", "YD")
+)
+
+MSEs_Sh2 <- c()
+colnames(MSEs_Sh2) <- names(Ys)
+
+for (dp in PFs) {
+  dpn <- paste(dp, collapse="_")
+  Y.source <- Ys[[dp[1]]]
+  Y.target <- Ys[[dp[2]]]
+  n <- ncol(Y1)
+
+  output_file <- paste0("Harmonized_", dpn, ".rda")
+
+  Y.target.hat <- Shambhala2(
+    InputData = Y.source,
+    PData = Y.target,
+    QData = Y.target,
+    delete_buffer_files = TRUE,
+    k = 5
+  )
+  save(Y.target.hat, file = output_file)
+
+  Y.target.hat <- Y.target.hat %>%
+    column_to_rownames("SYMBOL")
+
+  MSEs_Sh2[dpn] <- MSE1(Y.target.hat, Y.target)
+
+}
+
+rownames(MSEs_Sh2) <- paste0("Fold", 1:nrow(MSEs_Sh2))
+
+
+Shambhala2 <- function( InputData, PData, QData, delete_buffer_files = TRUE, k = 5 ) {
+
+  P = PData # log2
+  cat("Range of P:", range(P), "\n")
+
+  MAS0 = as.matrix(InputData) # log2
+  cat("Range of MAS0:", range(MAS0), "\n")
+
+  NS = ncol(MAS0)
+  SYMBOL = rownames(MAS0)
+  CN = colnames(MAS0)
+
+  pool = merge(MAS0, P, by = 0) # log2
+  colnames(pool)[1] <- "SYMBOL"
+
+  NS1 = ncol(pool)
+  NG1 = nrow(pool)
+
+  pool[, 2:ncol(pool)] <- dplyr::mutate_all(pool[, 2:ncol(pool)], function(x) as.numeric(as.character(x)))
+
+  P1FN = "P_prim.txt"
+  write.table(pool, P1FN, row.names = FALSE, col.names = TRUE, sep = "\t")
+
+  NH = ncol(MAS0)
+  NP = ncol(P)
+
+  args = c(NH,NP,k)
+  AFN = "args.txt"
+  write.table(args, AFN, row.names = FALSE, col.names = FALSE)
+
+  system("/Applications/MATLAB_R2024b.app/bin/matlab -nodesktop -nosplash -nodisplay -r \"cd('/Users/zhiningsui/GitHub/PPCAXNORM/simulations');run('Shambhala2.m');exit;\"")
+
+  Q = QData # log2
+  cat("Range of Q:", range(Q), "\n")
+
+  Cu2FN = "Cu_bis.txt"
+  MAS = read.table(Cu2FN, header = FALSE, sep = " ") # original
+  MAS = as.matrix(MAS) # original
+
+  MAS1 = merge(MAS,Q, by.x = 1, by.y = 0) # 2: (NS+1) original, (NS+2):ncol(MAS1) log2
+  MAS1[, 2:ncol(MAS1)] <- dplyr::mutate_all(MAS1[, 2:ncol(MAS1)], function(x) as.numeric(as.character(x)))
+
+  MAS3 = MAS1[, (NS+2):ncol(MAS1)] # log2
+  cat("Range of MAS3:", range(MAS3), "\n")
+
+  RM = rowMeans(as.matrix(MAS3))
+  RS = matrixStats::rowSds(as.matrix(MAS3))
+
+  MAS2 = MAS1[, 2:(NS+1)] # original
+  cat("Range of MAS2:", range(MAS2), "\n")
+  MAS22 = log2(MAS2+1) # log2
+  cat("Range of MAS22:", range(MAS22), "\n")
+
+  NR = nrow(MAS22)
+  for ( nr in 1:NR ) {
+    MAS22[nr,] = RM[nr] + RS[nr]*MAS22[nr,]
+  }
+
+  # MAS23 = exp(MAS22)
+  MAS23 = MAS22
+  cat("Range of MAS23:", range(MAS23), "\n")
+
+  SYMBOL = as.vector(MAS1[,1])
+  MAS33 = cbind(SYMBOL, MAS23)
+
+  for ( j in 2:(NS+1) ) {
+    MAS33[,j] = as.vector(as.numeric(MAS33[,j]))
+  }
+
+  if ( delete_buffer_files ) {
+
+    if (file.exists(P1FN)) {
+      #Delete file if it exists
+      file.remove(P1FN)
+    }
+
+    if (file.exists(Cu2FN)) {
+      #Delete file if it exists
+      file.remove(Cu2FN)
+    }
+
+    if (file.exists(AFN)) {
+      #Delete file if it exists
+      file.remove(AFN)
+    }
+
+  }
+
+  colnames(MAS33) = c("SYMBOL", CN)
+
+  return(MAS33)
+
+}
+
+
+
+YBhat.Sh2 <- Shambhala2(InputData = YA, PData = YB, QData = YB)

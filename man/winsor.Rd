@@ -4,10 +4,10 @@
 \alias{winsor}
 \title{Median Imputation and Winsorization by 5-Standard-Deviation Rule}
 \usage{
-winsor(mydata, n.std = 5, trim = 0.1, verbose = FALSE)
+winsor(data, n.std = 5, trim = 0.1, verbose = FALSE)
 }
 \arguments{
-\item{mydata}{A numeric matrix or data frame. Each row is treated as a feature (e.g., gene), and columns are samples.}
+\item{data}{A numeric matrix or data frame. Each row is treated as a feature (e.g., gene), and columns are samples.}
 
 \item{n.std}{Numeric. The number of standard deviations from the trimmed mean to use for winsorizing. Defaults to \code{5}.}
 
@@ -16,7 +16,7 @@ winsor(mydata, n.std = 5, trim = 0.1, verbose = FALSE)
 \item{verbose}{Logical. Whether to print summary information about imputation and winsorization. Defaults to \code{FALSE}.}
 }
 \value{
-A numeric matrix of the same dimensions as \code{mydata}, with missing values imputed and outliers winsorized.
+A numeric matrix of the same dimensions as \code{data}, with missing values imputed and outliers winsorized.
 }
 \description{
 Performs robust row-wise preprocessing on numeric matrix-like data by first imputing missing values using row-wise medians,

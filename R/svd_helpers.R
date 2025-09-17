@@ -79,7 +79,7 @@ fsvd0 <- function(X, k=min(nrow(X), ncol(X)), tol=1e-6) {
 #'
 #' @seealso \code{\link[Rfast]{hd.eigen}}, \code{\link[stats]{prcomp}}, \code{\link[stats]{eigen}}
 #'
-#' @importFrom Rfast colVars transpose Crossprod submatrix mat.mult
+#' @importFrom Rfast eachrow colVars transpose Crossprod submatrix mat.mult colmeans
 #' @export
 epca <- function(x, center=TRUE, scale=FALSE, retx=TRUE, k=min(nrow(x), ncol(x)), tol=1e-6) {
   n <- nrow(x); m <- ncol(x)
@@ -164,7 +164,7 @@ epca <- function(x, center=TRUE, scale=FALSE, retx=TRUE, k=min(nrow(x), ncol(x))
 #'
 #' @seealso \code{\link{epca}}, \code{\link[stats]{prcomp}}, \code{\link[stats]{svd}}
 #'
-#' @importFrom Rfast colVars transpose Crossprod submatrix mat.mult
+#' @importFrom Rfast eachrow colVars colsums transpose Crossprod submatrix mat.mult colmeans
 #' @export
 gppca <- function(Y, center=TRUE, scale=FALSE, retx=TRUE, L=min(nrow(Y), ncol(Y)), min.sigma2=0.01, pca.tol=1e-6, iter.tol=1e-6, max.iter=20) {
   N <- nrow(Y); m <- ncol(Y); m2 <- min(N,m)

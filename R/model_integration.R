@@ -48,16 +48,71 @@
 #'
 #' @export
 ModIntegrate <- function(modList, Xlist=NULL, Ylist, PairList) {
-  ## collect information from the inputs
-  ## use genenames names of covariates if available
-  gnames <- rownames(modList[[1]][["b0"]])
-  G <- length(modList); platforms <- Reduce("union", PairList)
-  nPFs <- length(platforms); m <- length(gnames)
-  ## the effective sample size for each group is Ng*Kg
+  #############################################################################
+  #############################################################################
+  ## Added by Zhining: Harmonize genes across groups (use shared/intersection)
+  gene_list <- lapply(modList, function(m) rownames(m[["b0"]]))
+  shared_genes <- Reduce(intersect, gene_list)
+  if (length(shared_genes) == 0L)
+    stop("No shared genes across groups.")
+  if (any(lengths(gene_list) != length(shared_genes)))
+    warning(sprintf("Dropping %d–%d non-shared genes to align groups.",
+                    min(lengths(gene_list)) - length(shared_genes),
+                    max(lengths(gene_list)) - length(shared_genes)))
+
+  ## Reindex all model pieces by shared genes
+  modList <- lapply(seq_along(modList), function(g) {
+    m <- modList[[g]]
+    ord <- match(shared_genes, rownames(m[["b0"]]))
+    m$b0 <- m$b0[ord, , drop = FALSE]
+    m$b1 <- m$b1[ord, , drop = FALSE]
+    if (!is.null(m$Beta)) m$Beta <- m$Beta[ord, , drop = FALSE]
+    if (!is.null(m$U)) m$U <- m$U[ord, , drop = FALSE]
+    m$sigma2s <- m$sigma2s[shared_genes]
+    m$sigmaU2s <- m$sigmaU2s[shared_genes]
+    m
+  })
+
+  if (!is.null(Ylist)) {
+    Ylist <- lapply(seq_along(Ylist), function(g) {
+      Yg <- Ylist[[g]]
+      Kg <- length(PairList[[g]])
+      m_old <- nrow(Yg) / Kg
+      if (m_old != length(gene_list[[g]]))
+        stop("Ylist[[", g, "]] row count does not match gene count × Kg.")
+      arr <- array(Yg, c(m_old, Kg, ncol(Yg)))
+      ord <- match(shared_genes, gene_list[[g]])
+      arr2 <- arr[ord, , , drop = FALSE]
+      out <- matrix(arr2, nrow = length(shared_genes) * Kg, ncol = ncol(Yg))
+      colnames(out) <- colnames(Yg)
+      out
+    })
+  }
+
+  gnames <- shared_genes
+  G  <- length(modList)
+  platforms <- Reduce("union", PairList)
+  nPFs <- length(platforms)
+  m <- length(gnames)
+
   Ns0 <- sapply(modList, function(mod) mod[["N"]])
   Ks <- sapply(modList, function(mod) mod[["K"]])
-  ## Ns are the effective samples in each platform
-  Ns <- Ns0*Ks
+  Ns <- Ns0 * Ks
+
+  #############################################################################
+  #############################################################################
+
+  ## collect information from the inputs
+  ## use genenames names of covariates if available
+  # gnames <- rownames(modList[[1]][["b0"]])
+  # G <- length(modList); platforms <- Reduce("union", PairList)
+  # nPFs <- length(platforms); m <- length(gnames)
+  # ## the effective sample size for each group is Ng*Kg
+  # Ns0 <- sapply(modList, function(mod) mod[["N"]])
+  # Ks <- sapply(modList, function(mod) mod[["K"]])
+  # ## Ns are the effective samples in each platform
+  # Ns <- Ns0*Ks
+
   ## extract the estimates from each model
   sigmaU2mat <- sapply(modList, function(mod) mod[["sigmaU2s"]])
   sigma2mat <- sapply(modList, function(mod) mod[["sigma2s"]])
@@ -66,6 +121,7 @@ ModIntegrate <- function(modList, Xlist=NULL, Ylist, PairList) {
   b1s <- lapply(modList, function(mod) mod[["b1"]])
   Us <- lapply(modList, function(mod) mod[["U"]])
   dds <- lapply(modList, function(mod) mod[["dd"]])
+
   ## sanity check
   Ls <- sapply(dds, length); L <- min(Ls)
   if (diff(range(Ls))!=0) {

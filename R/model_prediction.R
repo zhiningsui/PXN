@@ -60,11 +60,13 @@
 #' @seealso \code{\link{GDfun}}, \code{\link{winsor}}
 #'
 #' @export
-Prediction <- function(Ysource, X, trained.model, k.source=1, k.target=2, b1_min=0.02, min.sigmaU2=0.05, verbose=FALSE){
-  # In the case when there is only one covariate and X is not a matrix.
+Prediction <- function(Ysource, X, trained.model, k.source=1, k.target=2, b1_min=0.02,
+                       min.sigmaU2=0.05, verbose=FALSE){
+  # Ensure X is a matrix when provided (supports single covariate)
   if((!is.null(X)) & (!is.matrix(X))) {
     X <- matrix(X, nrow = 1)
   }
+
   ## collect information from trained.model
   Beta <- trained.model$Beta
   b0k <- trained.model$b0[, k.source]
@@ -108,7 +110,7 @@ Prediction <- function(Ysource, X, trained.model, k.source=1, k.target=2, b1_min
     SI <- (UD2%*%((diag(nrow=L) -t(U)%*%Term2)%*%PCs) -Term2%*%PCs)*Term1
   }
   ## The estimated gene expressions on platform k2
-  Yhat <- muk2 +GSI +SI
+  Yhat <- muk2 + GSI +SI
   ## Now just replace those genes with very small b1k by muk2
   Yhat[ids0,] <- muk2[ids0]%*%t(rep(1,N))
   ## for debugging purpose

@@ -106,3 +106,83 @@ CV.InitEst <- function(X, Y, K, folds, k.source, k.target, Ls=1:10, ...) {
   Lstar <- Ls[which.min(rowMeans(MSEs))]
   return(list(MSE=MSEs, Lstar=Lstar))
 }
+
+
+#' Cross-Validation for Selecting Optimal Latent Dimension `L`
+#'
+#' Performs K-fold cross-validation across a grid of candidate latent dimensions (`L`)
+#' to select the best number of latent factors for initializing the PPCA-Xnorm model using `InitEst()`.
+#'
+#' @param X Optional covariate matrix. If no covariates are used, set `X = NULL`.
+#' @param Y A numeric matrix of observed stacked outcomes, with `m*K` rows and `n` columns.
+#' @param K Integer. Number of domains/platforms.
+#' @param folds A list of test-set column indices for each CV fold (e.g., output of `cv.split()`).
+#' @param k.source Integer. Index (1-based) of the source platform within the stacked rows of `Y`.
+#' @param k.target Integer. Index (1-based) of the target platform within the stacked rows of `Y`.
+#' @param Ls Integer vector. Candidate grid of latent dimensions `L` to evaluate. Defaults to `1:10`.
+#' @param cores Integer. The number of CPU cores to use for parallel processing. Defaults to `1`.
+#' @param ... Additional arguments passed to `InitEst()` and `Prediction()`.
+#'
+#' @return A list containing:
+#' \itemize{
+#'   \item `MSE`: A matrix of mean squared errors, with rows corresponding to each candidate `L` and columns to CV folds.
+#'   \item `Lstar`: The value of `L` that minimizes the average MSE across folds.
+#' }
+#' @importFrom parallel makeCluster stopCluster clusterExport parSapply
+#' @export
+CV.InitEst.parallel <- function(X, Y, K, folds, k.source, k.target, Ls = 1:10, cores = 1, ...) {
+  n <- ncol(Y)
+  m <- nrow(Y) / K
+  nFolds <- length(folds)
+  nL <- length(Ls)
+  MSEs <- matrix(-1, nL, nFolds)
+  rownames(MSEs) <- paste0("L=", Ls)
+  colnames(MSEs) <- paste0("fold", 1:nFolds)
+
+  # Helper function to be applied over each fold
+  fun <- function(k, L, ...) {
+    test.idx <- folds[[k]]
+    train.idx <- setdiff(1:n, test.idx)
+    Y.test <- Y[, test.idx, drop = FALSE]
+    Y.train <- Y[, train.idx, drop = FALSE]
+
+    if (!is.null(X)) {
+      X.test <- X[, test.idx, drop = FALSE]
+      X.train <- X[, train.idx, drop = FALSE]
+    } else {
+      X.test <- X.train <- NULL
+    }
+
+    rr <- InitEst(X = X.train, Y = Y.train, K = K, L = L, ...)
+
+    Ysource.test <- Y.test[((k.source - 1) * m + 1):(k.source * m), ]
+    Ytarget.test <- Y.test[((k.target - 1) * m + 1):(k.target * m), ]
+
+    Ypred <- Prediction(Ysource = Ysource.test, X = X.test, trained.model = rr,
+                        k.source = k.source, k.target = k.target)
+
+    return(MSE1(Ypred, Ytarget.test))
+  }
+
+  if (cores > 1 && requireNamespace("parallel", quietly = TRUE)) {
+    cl <- parallel::makeCluster(cores)
+    on.exit(parallel::stopCluster(cl))
+
+    # Export necessary objects and load the package on each worker
+    parallel::clusterExport(cl, varlist = c("Y", "X", "K", "folds", "k.source", "k.target", "m",
+                                            "InitEst", "Prediction", "MSE1", "fun"), envir = environment())
+    parallel::clusterEvalQ(cl, library(PPCAXNORM))
+
+    apply_fun <- function(X, FUN, ...) parallel::parSapply(cl, X, FUN, ...)
+  } else {
+    apply_fun <- sapply
+  }
+
+  for (l in 1:nL) {
+    L <- Ls[l]
+    MSEs[l, ] <- apply_fun(1:nFolds, fun, L = L, ...)
+  }
+
+  Lstar <- Ls[which.min(rowMeans(MSEs))]
+  return(list(MSE = MSEs, Lstar = Lstar))
+}
