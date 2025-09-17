@@ -9,3 +9,7 @@
 ^LICENSE\.md$
 ^PPCAXNORM\.pdf$
 ^simulations$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
