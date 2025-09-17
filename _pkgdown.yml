@@ -1,4 +1,74 @@
-url: ~
+url: https://zhiningsui.github.io/PXN
 template:
   bootstrap: 5
 
+home:
+  title: PXN
+  description: Cross-platform normalization and prediction via PPCA.
+
+navbar:
+  structure:
+    left: [home, reference, articles, news]
+    right: [github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/zhiningsui/PXN
+
+reference:
+  - title: Core API
+    desc: Fit, refine, predict, and integrate
+    contents:
+      - InitEst
+      - GDfun
+      - Prediction
+      - ModIntegrate
+
+  - title: Model selection
+    contents:
+      - CV.InitEst
+      - CV.InitEst.parallel
+
+  - title: Data
+    contents:
+      - sim_expres
+      - sim_covars
+
+  - title: Utilities
+    contents:
+      - MSE1
+      - cv.split
+      - epca
+      - gppca
+      - rsolve2
+      - rhat
+      - mplot
+      - myboxplot
+      - rowlm
+      - limma
+      - predict_MM
+      - fisher
+
+  - title: Low-level math (internal-ish)
+    contents:
+      - BetaEst
+      - InitEst.LargeSTD
+      - MSE.SigmaY
+      - Ycircbar2Cov
+      - fsvd
+      - fsvd0
+      - getSigmaY
+      - gradLoglik
+      - loglik
+      - tr
+      - vec
+
+  # Catch-all so pkgdown doesn't complain about any remaining topics
+  - title: Everything else
+    contents:
+      - matches(".*")
+
+articles:
+  - title: Get started
+    contents:
+      - introduction

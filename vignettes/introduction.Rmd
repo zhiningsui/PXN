@@ -171,7 +171,7 @@ mse_AB
 ```
 
 **Visual check (random 80 genes):**
-```{r, fig.width=6}
+```{r ab-scatter, fig.width=6, fig.cap="A→B prediction (subset of genes).", fig.alt="Scatter of predicted vs. true B expression for 80 randomly selected genes. A dashed diagonal shows the ideal y=x line."}
 set.seed(999)
 g <- sample(seq_len(nrow(YB_true)), 80)
 dfp <- data.frame(truth = as.vector(YB_true[g, ]),
@@ -242,7 +242,7 @@ cv_select_L <- function(Y, X, K, L_grid = 0:4, Kfold = 5,
 
 Example: Run CV on AB
 
-```{r}
+```{r cv-plot-ab, fig.cap="Select L via K-fold CV (AB).", fig.alt="Line plot of CV mean MSE versus latent dimension L with vertical error bars showing plus/minus one standard deviation across folds."}
 L_grid <- 0:5             # small grid for speed (expand if needed)
 cv_ab  <- cv_select_L(Y = Y_AB, X = X_AB, K = 2,
                       L_grid = L_grid, Kfold = 5,
