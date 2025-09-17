@@ -16,10 +16,10 @@ limma(gdata, v, padj.method = "BH")
 \value{
 A \code{data.frame} containing:
 \itemize{
-  \item Estimated coefficients (\code{betahat.*}) for each covariate.
-  \item Moderated t-statistics (\code{tstat.*}) for each covariate.
-  \item Raw p-values (\code{pvals.*}) for each covariate.
-  \item Adjusted p-values (\code{adjP.*}) for each covariate.
+\item Estimated coefficients (\code{betahat.*}) for each covariate.
+\item Moderated t-statistics (\code{tstat.*}) for each covariate.
+\item Raw p-values (\code{pvals.*}) for each covariate.
+\item Adjusted p-values (\code{adjP.*}) for each covariate.
 }
 }
 \description{
@@ -29,9 +29,9 @@ for each covariate of interest.
 }
 \details{
 \itemize{
-  \item Samples with missing values in \code{v} are removed prior to model fitting.
-  \item The model fitted is: \eqn{Y = \text{Intercept} + v_1 + v_2 + \cdots + \epsilon}.
-  \item \code{eBayes()} from the \pkg{limma} package is used to perform empirical Bayes shrinkage of variance estimates.
+\item Samples with missing values in \code{v} are removed prior to model fitting.
+\item The model fitted is: \eqn{Y = \text{Intercept} + v_1 + v_2 + \cdots + \epsilon}.
+\item \code{eBayes()} from the \pkg{limma} package is used to perform empirical Bayes shrinkage of variance estimates.
 }
 }
 \examples{

@@ -32,9 +32,9 @@ GDfun(
 
 \item{params}{A list containing the current parameter estimates:
 \itemize{
-  \item \code{b1}: Initial slope vector.
-  \item \code{U}, \code{dd}: Eigenvectors and eigenvalues of the latent structure.
-  \item \code{sigmaU2s}, \code{sigma2s}: Variance components.
+\item \code{b1}: Initial slope vector.
+\item \code{U}, \code{dd}: Eigenvectors and eigenvalues of the latent structure.
+\item \code{sigmaU2s}, \code{sigma2s}: Variance components.
 }}
 
 \item{platforms}{Optional character vector of platform/domain names of length \code{K}.}
@@ -43,11 +43,11 @@ GDfun(
 
 \item{smax}{Numeric. Maximum allowed step size. Defaults to \code{0.5}.}
 
-\item{sigma2.min, }{sigma2.max Numeric. (Currently unused) Reserved for future extensions to variance parameter updates.}
+\item{sigma2.min, sigma2.max}{Numeric. (Currently unused) Reserved for future extensions to variance parameter updates.}
 
-\item{b1_min, }{b1.max Numeric. Lower and upper bounds for \code{b1}. Defaults are \code{0.1} and \code{5}.}
+\item{b1_min, b1.max}{Numeric. Lower and upper bounds for \code{b1}. Defaults are \code{0.1} and \code{5}.}
 
-\item{beta.min, }{beta.max Numeric. Lower and upper bounds for \code{Beta} entries. Defaults are \code{-5} and \code{5}.}
+\item{beta.min, beta.max}{Numeric. Lower and upper bounds for \code{Beta} entries. Defaults are \code{-5} and \code{5}.}
 
 \item{max.iter}{Integer. Maximum number of gradient descent iterations. Defaults to \code{30}.}
 
@@ -58,16 +58,16 @@ GDfun(
 \value{
 If \code{verbose = FALSE}, returns a list containing updated \code{params} with components:
 \itemize{
-  \item \code{b0}, \code{b1}, \code{Beta}, \code{U}, \code{dd}, \code{sigma2s}, \code{sigmaU2s}, \code{N}, \code{K}.
+\item \code{b0}, \code{b1}, \code{Beta}, \code{U}, \code{dd}, \code{sigma2s}, \code{sigmaU2s}, \code{N}, \code{K}.
 }
 If \code{verbose = TRUE}, additionally returns:
 \itemize{
-  \item \code{Ycirc}: Adjusted residual matrix.
-  \item \code{Ycircbar}: Averaged residual matrix across domains.
-  \item \code{loglik}: Final log-likelihood value.
-  \item \code{loglik.old}: Initial log-likelihood value.
-  \item \code{iters}: Number of iterations performed.
-  \item \code{history}: Trajectory of log-likelihood and step size per iteration.
+\item \code{Ycirc}: Adjusted residual matrix.
+\item \code{Ycircbar}: Averaged residual matrix across domains.
+\item \code{loglik}: Final log-likelihood value.
+\item \code{loglik.old}: Initial log-likelihood value.
+\item \code{iters}: Number of iterations performed.
+\item \code{history}: Trajectory of log-likelihood and step size per iteration.
 }
 }
 \description{

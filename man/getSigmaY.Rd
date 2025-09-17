@@ -14,8 +14,8 @@ containing at least \code{U}, \code{dd}, \code{sigmaU2s}, and \code{sigma2s}.}
 }
 \value{
 \itemize{
-  \item If \code{var.only = TRUE}, returns a numeric vector of variances for each gene/feature.
-  \item If \code{var.only = FALSE}, returns a full covariance matrix \eqn{\Sigma_Y}.
+\item If \code{var.only = TRUE}, returns a numeric vector of variances for each gene/feature.
+\item If \code{var.only = FALSE}, returns a full covariance matrix \eqn{\Sigma_Y}.
 }
 }
 \description{
@@ -24,9 +24,9 @@ based on the estimated model parameters from PPCA-Xnorm or generalized PPCA mode
 }
 \details{
 \itemize{
-  \item \eqn{\Sigma_Y = \text{diag}(\sigma^2 + \sigma_U^2) + AA'}, where \eqn{AA'} captures the shared latent structure.
-  \item If no latent factors are available (\code{U = NULL} or \code{dd = NULL}), only the diagonal variance terms are used.
-  \item This function automatically adapts to simple cases (e.g., pure noise models) and complex cases (low-rank plus diagonal structure).
+\item \eqn{\Sigma_Y = \text{diag}(\sigma^2 + \sigma_U^2) + AA'}, where \eqn{AA'} captures the shared latent structure.
+\item If no latent factors are available (\code{U = NULL} or \code{dd = NULL}), only the diagonal variance terms are used.
+\item This function automatically adapts to simple cases (e.g., pure noise models) and complex cases (low-rank plus diagonal structure).
 }
 }
 \examples{

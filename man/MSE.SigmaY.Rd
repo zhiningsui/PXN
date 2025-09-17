@@ -20,10 +20,10 @@ based on their low-rank and diagonal components. Designed to efficiently handle 
 }
 \details{
 \itemize{
-  \item The low-rank term is computed as \eqn{AA'} where \eqn{A = U \sqrt{d}}.
-  \item The full covariance matrix \eqn{\Sigma_Y} is modeled as the sum of a low-rank term (\eqn{AA'}) and a diagonal variance term.
-  \item The MSE is computed as the sum of squared differences between the two low-rank structures and the two sets of variances, divided by \eqn{m^2}.
-  \item This method is memory-efficient and avoids explicitly forming large \eqn{\Sigma_Y} matrices.
+\item The low-rank term is computed as \eqn{AA'} where \eqn{A = U \sqrt{d}}.
+\item The full covariance matrix \eqn{\Sigma_Y} is modeled as the sum of a low-rank term (\eqn{AA'}) and a diagonal variance term.
+\item The MSE is computed as the sum of squared differences between the two low-rank structures and the two sets of variances, divided by \eqn{m^2}.
+\item This method is memory-efficient and avoids explicitly forming large \eqn{\Sigma_Y} matrices.
 }
 }
 \examples{

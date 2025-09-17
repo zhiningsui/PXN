@@ -20,9 +20,9 @@ using Fisher's combination test.
 }
 \details{
 \itemize{
-  \item The test statistic is computed as \eqn{S = -2 \sum \log(p_i)}, where each \eqn{p_i} is thresholded by \code{pmin}.
-  \item The combined p-value is obtained by comparing \eqn{S} to a chi-squared distribution with \code{2 × length(ps)} degrees of freedom.
-  \item Useful for aggregating evidence across multiple tests while controlling type I error.
+\item The test statistic is computed as \eqn{S = -2 \sum \log(p_i)}, where each \eqn{p_i} is thresholded by \code{pmin}.
+\item The combined p-value is obtained by comparing \eqn{S} to a chi-squared distribution with \code{2 × length(ps)} degrees of freedom.
+\item Useful for aggregating evidence across multiple tests while controlling type I error.
 }
 }
 \examples{

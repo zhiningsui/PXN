@@ -2,7 +2,7 @@
 % Please edit documentation in R/cross_validation.R
 \name{CV.InitEst.parallel}
 \alias{CV.InitEst.parallel}
-\title{Cross-Validation for Selecting Optimal Latent Dimension `L`}
+\title{Cross-Validation for Selecting Optimal Latent Dimension \code{L}}
 \usage{
 CV.InitEst.parallel(
   X,
@@ -17,32 +17,32 @@ CV.InitEst.parallel(
 )
 }
 \arguments{
-\item{X}{Optional covariate matrix. If no covariates are used, set `X = NULL`.}
+\item{X}{Optional covariate matrix. If no covariates are used, set \code{X = NULL}.}
 
-\item{Y}{A numeric matrix of observed stacked outcomes, with `m*K` rows and `n` columns.}
+\item{Y}{A numeric matrix of observed stacked outcomes, with \code{m*K} rows and \code{n} columns.}
 
 \item{K}{Integer. Number of domains/platforms.}
 
-\item{folds}{A list of test-set column indices for each CV fold (e.g., output of `cv.split()`).}
+\item{folds}{A list of test-set column indices for each CV fold (e.g., output of \code{cv.split()}).}
 
-\item{k.source}{Integer. Index (1-based) of the source platform within the stacked rows of `Y`.}
+\item{k.source}{Integer. Index (1-based) of the source platform within the stacked rows of \code{Y}.}
 
-\item{k.target}{Integer. Index (1-based) of the target platform within the stacked rows of `Y`.}
+\item{k.target}{Integer. Index (1-based) of the target platform within the stacked rows of \code{Y}.}
 
-\item{Ls}{Integer vector. Candidate grid of latent dimensions `L` to evaluate. Defaults to `1:10`.}
+\item{Ls}{Integer vector. Candidate grid of latent dimensions \code{L} to evaluate. Defaults to \code{1:10}.}
 
-\item{cores}{Integer. The number of CPU cores to use for parallel processing. Defaults to `1`.}
+\item{cores}{Integer. The number of CPU cores to use for parallel processing. Defaults to \code{1}.}
 
-\item{...}{Additional arguments passed to `InitEst()` and `Prediction()`.}
+\item{...}{Additional arguments passed to \code{InitEst()} and \code{Prediction()}.}
 }
 \value{
 A list containing:
 \itemize{
-  \item `MSE`: A matrix of mean squared errors, with rows corresponding to each candidate `L` and columns to CV folds.
-  \item `Lstar`: The value of `L` that minimizes the average MSE across folds.
+\item \code{MSE}: A matrix of mean squared errors, with rows corresponding to each candidate \code{L} and columns to CV folds.
+\item \code{Lstar}: The value of \code{L} that minimizes the average MSE across folds.
 }
 }
 \description{
-Performs K-fold cross-validation across a grid of candidate latent dimensions (`L`)
-to select the best number of latent factors for initializing the PPCA-Xnorm model using `InitEst()`.
+Performs K-fold cross-validation across a grid of candidate latent dimensions (\code{L})
+to select the best number of latent factors for initializing the PPCA-Xnorm model using \code{InitEst()}.
 }

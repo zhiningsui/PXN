@@ -7,16 +7,16 @@
 \format{
 A named list of length 3:
 \describe{
-  \item{AB}{Numeric matrix \eqn{p \times n}; columns match \code{sim_expres$AB}.}
-  \item{BCD}{Numeric matrix \eqn{p \times n}; columns match \code{sim_expres$BCD}.}
-  \item{EF}{Numeric matrix \eqn{p \times n}; columns match \code{sim_expres$EF}.}
+\item{AB}{Numeric matrix \eqn{p \times n}; columns match \code{sim_expres$AB}.}
+\item{BCD}{Numeric matrix \eqn{p \times n}; columns match \code{sim_expres$BCD}.}
+\item{EF}{Numeric matrix \eqn{p \times n}; columns match \code{sim_expres$EF}.}
 }
 }
 \usage{
 data(sim_covars)
 }
 \description{
-`sim_covars` contains covariate matrices that column-align with the
+\code{sim_covars} contains covariate matrices that column-align with the
 expression matrices in \code{\link{sim_expres}}. Each element is a small
 \eqn{p \times n} numeric matrix (in the shipped data \eqn{p = 3}) whose rows
 are covariates (see \code{rownames()}) and whose columns are samples in the
@@ -40,7 +40,7 @@ lapply(sim_covars, dim)
 }
 \seealso{
 \code{\link{sim_expres}},
-  \code{\link{InitEst}}, \code{\link{GDfun}},
-  \code{\link{Prediction}}, \code{\link{ModIntegrate}}
+\code{\link{InitEst}}, \code{\link{GDfun}},
+\code{\link{Prediction}}, \code{\link{ModIntegrate}}
 }
 \keyword{datasets}

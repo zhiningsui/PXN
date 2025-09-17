@@ -56,7 +56,7 @@ ModIntegrate <- function(modList, Xlist=NULL, Ylist, PairList) {
   if (length(shared_genes) == 0L)
     stop("No shared genes across groups.")
   if (any(lengths(gene_list) != length(shared_genes)))
-    warning(sprintf("Dropping %d–%d non-shared genes to align groups.",
+    warning(sprintf("Dropping %d-%d non-shared genes to align groups.",
                     min(lengths(gene_list)) - length(shared_genes),
                     max(lengths(gene_list)) - length(shared_genes)))
 
@@ -79,7 +79,7 @@ ModIntegrate <- function(modList, Xlist=NULL, Ylist, PairList) {
       Kg <- length(PairList[[g]])
       m_old <- nrow(Yg) / Kg
       if (m_old != length(gene_list[[g]]))
-        stop("Ylist[[", g, "]] row count does not match gene count × Kg.")
+        stop("Ylist[[", g, "]] row count does not match gene count x Kg.")
       arr <- array(Yg, c(m_old, Kg, ncol(Yg)))
       ord <- match(shared_genes, gene_list[[g]])
       arr2 <- arr[ord, , , drop = FALSE]
@@ -205,7 +205,8 @@ ModIntegrate <- function(modList, Xlist=NULL, Ylist, PairList) {
   ## b0 and b1 are matrices, not long vectors
   rownames(b0) <- rownames(b1) <- rownames(U)  <- names(sigmaU2s)  <- names(sigma2s) <- gnames
   if (!is.null(Betahat)) {
-    rownames(Betahat) <- gnames; colnames(Betahat) <- rownames(Xs[[1]])
+    # rownames(Betahat) <- gnames; colnames(Betahat) <- rownames(Xs[[1]])
+    rownames(Betahat) <- gnames; colnames(Betahat) <- rownames(Xlist[[1]])
   }
   colnames(U) <- paste0("PC", 1:ncol(U))
   return(list(b0=b0, b1=b1, Beta=Betahat, U=U, dd=dd, varprops=varprops,

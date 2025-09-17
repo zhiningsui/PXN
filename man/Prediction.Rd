@@ -22,13 +22,13 @@ Prediction(
 
 \item{trained.model}{A list containing trained model parameters, typically produced by MatchMixeR gradient descent or estimation functions:
 \itemize{
-  \item \code{b0}: Matrix of intercepts (genes × platforms).
-  \item \code{b1}: Matrix of slopes (genes × platforms).
-  \item \code{Beta}: Covariate coefficients (optional).
-  \item \code{U}: Eigenvectors of shared latent structure.
-  \item \code{dd}: Corresponding eigenvalues (singular values squared).
-  \item \code{sigmaU2s}: Gene-specific latent variances.
-  \item \code{sigma2s}: Gene-specific residual variances.
+\item \code{b0}: Matrix of intercepts (genes × platforms).
+\item \code{b1}: Matrix of slopes (genes × platforms).
+\item \code{Beta}: Covariate coefficients (optional).
+\item \code{U}: Eigenvectors of shared latent structure.
+\item \code{dd}: Corresponding eigenvalues (singular values squared).
+\item \code{sigmaU2s}: Gene-specific latent variances.
+\item \code{sigma2s}: Gene-specific residual variances.
 }}
 
 \item{k.source}{Integer. Index (1-based) of the source platform in \code{b0} and \code{b1}. Defaults to \code{1}.}
@@ -45,11 +45,11 @@ Prediction(
 If \code{verbose = FALSE}, returns a numeric matrix \code{Yhat} of predicted expressions on the target platform.
 If \code{verbose = TRUE}, returns a list containing:
 \itemize{
-  \item \code{Yhat}: Predicted target expression matrix.
-  \item \code{muk2}: Adjusted covariate contribution on the target platform.
-  \item \code{GSI}: Gene-specific information contribution.
-  \item \code{SI}: Shared latent information contribution.
-  \item \code{ids0}: Indices of genes where simplified prediction was applied.
+\item \code{Yhat}: Predicted target expression matrix.
+\item \code{muk2}: Adjusted covariate contribution on the target platform.
+\item \code{GSI}: Gene-specific information contribution.
+\item \code{SI}: Shared latent information contribution.
+\item \code{ids0}: Indices of genes where simplified prediction was applied.
 }
 }
 \description{
@@ -58,9 +58,9 @@ Accounts for individualized scaling, covariate adjustment, shared latent structu
 }
 \details{
 \itemize{
-  \item Genes with very small source slopes (\code{b1k}) are predicted purely based on covariate effects and intercepts.
-  \item Otherwise, the prediction combines gene-specific information (GSI) and shared information (SI) derived from the latent structure (\code{U} and \code{dd}).
-  \item If missing values (\code{NA}) are present in \code{Ysource}, the function will stop. Preprocessing with \code{winsor()} is recommended.
+\item Genes with very small source slopes (\code{b1k}) are predicted purely based on covariate effects and intercepts.
+\item Otherwise, the prediction combines gene-specific information (GSI) and shared information (SI) derived from the latent structure (\code{U} and \code{dd}).
+\item If missing values (\code{NA}) are present in \code{Ysource}, the function will stop. Preprocessing with \code{winsor()} is recommended.
 }
 }
 \examples{

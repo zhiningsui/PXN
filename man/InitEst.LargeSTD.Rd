@@ -35,14 +35,14 @@ InitEst.LargeSTD(
 \value{
 A list containing:
 \itemize{
-  \item \code{b0}: Gene-by-platform matrix of intercepts.
-  \item \code{b1}: Gene-by-platform matrix of slopes.
-  \item \code{Beta}: Covariate coefficient matrix (if \code{X} is provided).
-  \item \code{U}: Estimated eigenvector matrix for shared latent structure.
-  \item \code{dd}: Estimated eigenvalues.
-  \item \code{varprops}: Cumulative variance proportions explained by the latent structure.
-  \item \code{sigmaU2s}: Gene-specific latent variances.
-  \item \code{sigma2s}: Gene-specific residual variances.
+\item \code{b0}: Gene-by-platform matrix of intercepts.
+\item \code{b1}: Gene-by-platform matrix of slopes.
+\item \code{Beta}: Covariate coefficient matrix (if \code{X} is provided).
+\item \code{U}: Estimated eigenvector matrix for shared latent structure.
+\item \code{dd}: Estimated eigenvalues.
+\item \code{varprops}: Cumulative variance proportions explained by the latent structure.
+\item \code{sigmaU2s}: Gene-specific latent variances.
+\item \code{sigma2s}: Gene-specific residual variances.
 }
 }
 \description{
@@ -53,10 +53,10 @@ This function is intended for use inside \code{InitEst()} and does not handle lo
 }
 \details{
 \itemize{
-  \item Genes are assumed to have sufficiently large variance (standard deviation well above \code{min.sigma2}).
-  \item Residuals are computed after optionally regressing out covariates using a robust hat matrix (\code{rhat()}).
-  \item Standardized residuals (\code{R0s}) are averaged across domains to form \code{R0sbar}, which is used to estimate the latent structure.
-  \item Uses \code{gppca()} to extract low-dimensional latent components.
+\item Genes are assumed to have sufficiently large variance (standard deviation well above \code{min.sigma2}).
+\item Residuals are computed after optionally regressing out covariates using a robust hat matrix (\code{rhat()}).
+\item Standardized residuals (\code{R0s}) are averaged across domains to form \code{R0sbar}, which is used to estimate the latent structure.
+\item Uses \code{gppca()} to extract low-dimensional latent components.
 }
 }
 \examples{

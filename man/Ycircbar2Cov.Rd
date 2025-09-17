@@ -22,11 +22,11 @@ Ycircbar2Cov(Ycircbar, K, L, min.sigma2 = 0.01, min.sigmaU2 = 0.05, W = 0.5)
 \value{
 A list containing:
 \itemize{
-  \item \code{U}: Estimated eigenvector matrix for shared latent structure.
-  \item \code{dd}: Corresponding eigenvalues (latent variances).
-  \item \code{varprops}: Cumulative variance proportions explained by the latent factors.
-  \item \code{sigmaU2s}: Estimated gene-specific latent variances.
-  \item \code{sigma2s}: Estimated gene-specific residual variances.
+\item \code{U}: Estimated eigenvector matrix for shared latent structure.
+\item \code{dd}: Corresponding eigenvalues (latent variances).
+\item \code{varprops}: Cumulative variance proportions explained by the latent factors.
+\item \code{sigmaU2s}: Estimated gene-specific latent variances.
+\item \code{sigma2s}: Estimated gene-specific residual variances.
 }
 }
 \description{
@@ -36,10 +36,10 @@ to separate shared structure and individual noise contributions.
 }
 \details{
 \itemize{
-  \item If \code{K = 1} (no platform pairing), \code{Ycircbar} is treated as standardized and \code{scale = TRUE} is used in \code{gppca()}.
-  \item If \code{K} \eqn{\geq} \code{2}, platform-paired adjustment is performed, and \code{scale = FALSE} is used.
-  \item Variance decomposition ensures stability by enforcing minimum thresholds \code{min.sigma2} and \code{min.sigmaU2}.
-  \item If no latent structure is detected (\code{U = NULL}), a simplified variance model is returned.
+\item If \code{K = 1} (no platform pairing), \code{Ycircbar} is treated as standardized and \code{scale = TRUE} is used in \code{gppca()}.
+\item If \code{K} \eqn{\geq} \code{2}, platform-paired adjustment is performed, and \code{scale = FALSE} is used.
+\item Variance decomposition ensures stability by enforcing minimum thresholds \code{min.sigma2} and \code{min.sigmaU2}.
+\item If no latent structure is detected (\code{U = NULL}), a simplified variance model is returned.
 }
 }
 \examples{

@@ -38,10 +38,10 @@ gppca(
 \value{
 A list with components:
 \describe{
-  \item{\code{U}}{Matrix of estimated loading directions (eigenvectors of the generalized correlation matrix).}
-  \item{\code{dd}}{Estimated eigenvalues of the latent space (diagonal elements of the covariance matrix).}
-  \item{\code{sigma2s}}{Estimated residual variances for each feature (non-scalar noise).}
-  \item{\code{history}}{A numeric vector recording the convergence error at each iteration.}
+\item{\code{U}}{Matrix of estimated loading directions (eigenvectors of the generalized correlation matrix).}
+\item{\code{dd}}{Estimated eigenvalues of the latent space (diagonal elements of the covariance matrix).}
+\item{\code{sigma2s}}{Estimated residual variances for each feature (non-scalar noise).}
+\item{\code{history}}{A numeric vector recording the convergence error at each iteration.}
 }
 }
 \description{

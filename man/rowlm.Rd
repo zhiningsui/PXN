@@ -16,10 +16,10 @@ rowlm(gdata, v, padj.method = "BH")
 \value{
 A \code{data.frame} containing:
 \itemize{
-  \item Estimated coefficients (\code{betahat.*}) for each covariate.
-  \item Raw t-statistics (\code{tstat.*}) for each covariate.
-  \item Raw two-sided p-values (\code{pvals.*}) for each covariate.
-  \item Adjusted p-values (\code{adjP.*}) for each covariate.
+\item Estimated coefficients (\code{betahat.*}) for each covariate.
+\item Raw t-statistics (\code{tstat.*}) for each covariate.
+\item Raw two-sided p-values (\code{pvals.*}) for each covariate.
+\item Adjusted p-values (\code{adjP.*}) for each covariate.
 }
 }
 \description{
@@ -29,10 +29,10 @@ Unlike \code{limma()}, this implementation is strictly invariant and equivariant
 }
 \details{
 \itemize{
-  \item Samples with missing covariate values are removed before model fitting.
-  \item An intercept is automatically included in the design matrix.
-  \item Manual matrix-based calculation ensures strict affine invariance of the fitted statistics.
-  \item P-values are based on the classical t-distribution with \code{n - p} degrees of freedom.
+\item Samples with missing covariate values are removed before model fitting.
+\item An intercept is automatically included in the design matrix.
+\item Manual matrix-based calculation ensures strict affine invariance of the fitted statistics.
+\item P-values are based on the classical t-distribution with \code{n - p} degrees of freedom.
 }
 }
 \examples{

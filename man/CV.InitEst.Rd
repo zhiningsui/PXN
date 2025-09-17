@@ -26,8 +26,8 @@ CV.InitEst(X, Y, K, folds, k.source, k.target, Ls = 1:10, ...)
 \value{
 A list containing:
 \itemize{
-  \item \code{MSE}: A matrix of mean squared errors, with rows corresponding to each candidate \code{L} and columns to CV folds.
-  \item \code{Lstar}: The value of \code{L} that minimizes the average MSE across folds.
+\item \code{MSE}: A matrix of mean squared errors, with rows corresponding to each candidate \code{L} and columns to CV folds.
+\item \code{Lstar}: The value of \code{L} that minimizes the average MSE across folds.
 }
 }
 \description{
@@ -36,10 +36,10 @@ to select the best number of latent factors for initializing the PPCA-Xnorm mode
 }
 \details{
 \itemize{
-  \item For each \code{L} and fold, \code{InitEst()} is fitted on the training set, predictions are made on the test set using \code{Prediction()},
-        and mean squared error (MSE) is evaluated.
-  \item The optimal \code{Lstar} is chosen to minimize the mean MSE across folds.
-  \item If covariates are present, they are split accordingly between training and testing.
+\item For each \code{L} and fold, \code{InitEst()} is fitted on the training set, predictions are made on the test set using \code{Prediction()},
+and mean squared error (MSE) is evaluated.
+\item The optimal \code{Lstar} is chosen to minimize the mean MSE across folds.
+\item If covariates are present, they are split accordingly between training and testing.
 }
 }
 \examples{

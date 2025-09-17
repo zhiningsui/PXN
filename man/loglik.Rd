@@ -15,13 +15,13 @@ loglik(X, Y, K, params, b1_min = 0.1, verbose = FALSE)
 
 \item{params}{A list containing the model parameters:
 \itemize{
-  \item \code{b0}: Vector of intercepts (length \code{m}).
-  \item \code{b1}: Vector of slopes (length \code{m}).
-  \item \code{Beta}: Coefficient matrix for covariates (optional).
-  \item \code{U}: Eigenvector matrix of the latent correlation structure.
-  \item \code{dd}: Corresponding eigenvalues (\code{dd[l]} equals squared singular values).
-  \item \code{sigmaU2s}: Platform-specific variance components.
-  \item \code{sigma2s}: Residual variances per gene.
+\item \code{b0}: Vector of intercepts (length \code{m}).
+\item \code{b1}: Vector of slopes (length \code{m}).
+\item \code{Beta}: Coefficient matrix for covariates (optional).
+\item \code{U}: Eigenvector matrix of the latent correlation structure.
+\item \code{dd}: Corresponding eigenvalues (\code{dd[l]} equals squared singular values).
+\item \code{sigmaU2s}: Platform-specific variance components.
+\item \code{sigma2s}: Residual variances per gene.
 }}
 
 \item{b1_min}{Numeric. Minimum allowed value for \code{b1} slopes to avoid numerical instability. Defaults to \code{0.1}.}
@@ -39,10 +39,10 @@ affine transformations, latent correlation structure via eigen decomposition, an
 }
 \details{
 \itemize{
-  \item \code{U} and \code{dd} characterize the latent correlation structure \eqn{AA'}.
-  \item The likelihood accounts for transformations, platform-specific noise variances, and optional covariates.
-  \item Computations are stabilized by imposing minimum thresholds on \code{b1} values.
-  \item The function uses \code{ameans()} for fast marginalization across domains and assumes \code{Y} is ordered by stacked platforms.
+\item \code{U} and \code{dd} characterize the latent correlation structure \eqn{AA'}.
+\item The likelihood accounts for transformations, platform-specific noise variances, and optional covariates.
+\item Computations are stabilized by imposing minimum thresholds on \code{b1} values.
+\item The function uses \code{ameans()} for fast marginalization across domains and assumes \code{Y} is ordered by stacked platforms.
 }
 }
 \examples{

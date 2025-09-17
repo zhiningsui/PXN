@@ -1,2 +1,11 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^dev$
+^notes$
+^scratch$
+^figs$
+^doc$
+^Meta$
+^LICENSE\.md$
+^PPCAXNORM\.pdf$
+^simulations$

@@ -244,9 +244,9 @@ BetaEst <- function(X, Y, b1, K, b1_min=.1){
 #' @param platforms Optional character vector of platform/domain names of length \code{K}.
 #' @param s0 Numeric. Initial step size for gradient descent. Defaults to \code{0.01}.
 #' @param smax Numeric. Maximum allowed step size. Defaults to \code{0.5}.
-#' @param sigma2.min, sigma2.max Numeric. (Currently unused) Reserved for future extensions to variance parameter updates.
-#' @param b1_min, b1.max Numeric. Lower and upper bounds for \code{b1}. Defaults are \code{0.1} and \code{5}.
-#' @param beta.min, beta.max Numeric. Lower and upper bounds for \code{Beta} entries. Defaults are \code{-5} and \code{5}.
+#' @param sigma2.min,sigma2.max Numeric. (Currently unused) Reserved for future extensions to variance parameter updates.
+#' @param b1_min,b1.max Numeric. Lower and upper bounds for \code{b1}. Defaults are \code{0.1} and \code{5}.
+#' @param beta.min,beta.max Numeric. Lower and upper bounds for \code{Beta} entries. Defaults are \code{-5} and \code{5}.
 #' @param max.iter Integer. Maximum number of gradient descent iterations. Defaults to \code{30}.
 #' @param tol Numeric. Tolerance for convergence based on log-likelihood difference. Defaults to \code{0.1}.
 #' @param verbose Logical. If \code{TRUE}, returns intermediate results including \code{Ycirc} and \code{Ycircbar}. Defaults to \code{FALSE}.

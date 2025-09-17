@@ -21,9 +21,9 @@ Computes the mean squared error (MSE) between estimated and true values, with an
 }
 \details{
 \itemize{
-  \item If \code{relative = FALSE}, computes \eqn{\frac{1}{n} \sum_i (\hat{y}_i - y_i)^2}.
-  \item If \code{relative = TRUE}, computes \eqn{\frac{\sum_i (\hat{y}_i - y_i)^2}{\sum_i y_i^2}}, which is scale-invariant.
-  \item Missing values (\code{NA}) are ignored in the sum.
+\item If \code{relative = FALSE}, computes \eqn{\frac{1}{n} \sum_i (\hat{y}_i - y_i)^2}.
+\item If \code{relative = TRUE}, computes \eqn{\frac{\sum_i (\hat{y}_i - y_i)^2}{\sum_i y_i^2}}, which is scale-invariant.
+\item Missing values (\code{NA}) are ignored in the sum.
 }
 }
 \examples{

@@ -7,19 +7,19 @@
 \format{
 A named list of length 3:
 \describe{
-  \item{AB}{Numeric matrix of dimension \eqn{2m \times n}.
-            Stacked as \code{rbind(YA, YB)} (top = A, bottom = B).}
-  \item{BCD}{Numeric matrix of dimension \eqn{3m \times n}.
-             Stacked as \code{rbind(YB, YC, YD)}.}
-  \item{EF}{Numeric matrix of dimension \eqn{2m \times n}.
-            Stacked as \code{rbind(YE, YF)}.}
+\item{AB}{Numeric matrix of dimension \eqn{2m \times n}.
+Stacked as \code{rbind(YA, YB)} (top = A, bottom = B).}
+\item{BCD}{Numeric matrix of dimension \eqn{3m \times n}.
+Stacked as \code{rbind(YB, YC, YD)}.}
+\item{EF}{Numeric matrix of dimension \eqn{2m \times n}.
+Stacked as \code{rbind(YE, YF)}.}
 }
 }
 \usage{
 data(sim_expres)
 }
 \description{
-`sim_expres` contains simulated gene-expression matrices used in the
+\code{sim_expres} contains simulated gene-expression matrices used in the
 PPCAXNORM vignette and examples. Each element is a matrix whose rows are
 genes and columns are samples, with platforms stacked by rows.
 }
@@ -42,7 +42,7 @@ YB <- sim_expres$AB[(m + 1):(2 * m), ]
 }
 \seealso{
 \code{\link{sim_covars}},
-  \code{\link{InitEst}}, \code{\link{GDfun}},
-  \code{\link{Prediction}}, \code{\link{ModIntegrate}}
+\code{\link{InitEst}}, \code{\link{GDfun}},
+\code{\link{Prediction}}, \code{\link{ModIntegrate}}
 }
 \keyword{datasets}

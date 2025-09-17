@@ -18,16 +18,16 @@ ModIntegrate(modList, Xlist = NULL, Ylist, PairList)
 \value{
 A list containing:
 \itemize{
-  \item \code{b0}: Gene-by-platform matrix of integrated intercepts.
-  \item \code{b1}: Gene-by-platform matrix of integrated slopes.
-  \item \code{Beta}: Integrated covariate coefficient matrix (if covariates were provided).
-  \item \code{U}: Integrated eigenvector matrix of the shared latent structure.
-  \item \code{dd}: Integrated eigenvalues (latent variances).
-  \item \code{varprops}: Cumulative variance proportions explained by the integrated latent structure.
-  \item \code{sigma2s}: Integrated gene-specific residual variances.
-  \item \code{sigmaU2s}: Integrated gene-specific latent variances.
-  \item \code{Ns}: Vector of sample sizes per group.
-  \item \code{Ks}: Vector of number of platforms per group.
+\item \code{b0}: Gene-by-platform matrix of integrated intercepts.
+\item \code{b1}: Gene-by-platform matrix of integrated slopes.
+\item \code{Beta}: Integrated covariate coefficient matrix (if covariates were provided).
+\item \code{U}: Integrated eigenvector matrix of the shared latent structure.
+\item \code{dd}: Integrated eigenvalues (latent variances).
+\item \code{varprops}: Cumulative variance proportions explained by the integrated latent structure.
+\item \code{sigma2s}: Integrated gene-specific residual variances.
+\item \code{sigmaU2s}: Integrated gene-specific latent variances.
+\item \code{Ns}: Vector of sample sizes per group.
+\item \code{Ks}: Vector of number of platforms per group.
 }
 }
 \description{
@@ -37,10 +37,10 @@ Shared covariance structure is re-estimated based on the averaged residuals (\co
 }
 \details{
 \itemize{
-  \item Intercepts (\code{b0}) and slopes (\code{b1}) are combined via sample-size weighted averages across groups sharing the same platform.
-  \item Covariate effects (\code{Beta}) are combined via weighted averages if available.
-  \item Shared latent structure (\code{U}, \code{dd}) is re-estimated by applying SVD to concatenated \code{Ycircbar} matrices.
-  \item Effective number of PCs (\code{L}) may decrease if singular values are numerically zero during SVD.
+\item Intercepts (\code{b0}) and slopes (\code{b1}) are combined via sample-size weighted averages across groups sharing the same platform.
+\item Covariate effects (\code{Beta}) are combined via weighted averages if available.
+\item Shared latent structure (\code{U}, \code{dd}) is re-estimated by applying SVD to concatenated \code{Ycircbar} matrices.
+\item Effective number of PCs (\code{L}) may decrease if singular values are numerically zero during SVD.
 }
 }
 \examples{

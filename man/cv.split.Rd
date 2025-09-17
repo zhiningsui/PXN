@@ -21,8 +21,8 @@ The function ensures folds are randomly ordered and differ in size by at most on
 \details{
 The function ensures:
 \itemize{
-  \item Fold sizes differ by at most one.
-  \item Samples are randomly shuffled using \code{\link[stats]{sample}}.
+\item Fold sizes differ by at most one.
+\item Samples are randomly shuffled using \code{\link[stats]{sample}}.
 }
 }
 \examples{

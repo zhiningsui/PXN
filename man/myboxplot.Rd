@@ -24,9 +24,9 @@ of sample distributions. Outlier symbols from the boxplot itself are suppressed 
 }
 \details{
 \itemize{
-  \item Boxplot outliers are suppressed (\code{outpch = NA}) to focus on the jittered points.
-  \item Jittering is applied using \code{method = "jitter"} to prevent overplotting of identical or similar values.
-  \item Useful for small- to medium-sized datasets where individual points are informative.
+\item Boxplot outliers are suppressed (\code{outpch = NA}) to focus on the jittered points.
+\item Jittering is applied using \code{method = "jitter"} to prevent overplotting of identical or similar values.
+\item Useful for small- to medium-sized datasets where individual points are informative.
 }
 }
 \examples{

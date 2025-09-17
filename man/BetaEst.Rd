@@ -27,9 +27,9 @@ in a latent expression model with stacked domain data. If no covariates are prov
 }
 \details{
 \itemize{
-  \item If \code{X} is not \code{NULL}, the function scales and centers \code{Y}, computes averaged residuals across domains,
-        and solves a stabilized linear system to estimate \code{Beta}.
-  \item Stability is ensured by bounding the minimum \code{b1} values and using a robust pseudo-inverse \code{rsolve2()}.
+\item If \code{X} is not \code{NULL}, the function scales and centers \code{Y}, computes averaged residuals across domains,
+and solves a stabilized linear system to estimate \code{Beta}.
+\item Stability is ensured by bounding the minimum \code{b1} values and using a robust pseudo-inverse \code{rsolve2()}.
 }
 }
 \examples{

@@ -24,17 +24,17 @@ InitEst(X, Y, K, L, min.sigma2 = 0.01, min.sigmaU2 = 0.05, p.correct = TRUE)
 \value{
 A list containing the initial parameter estimates:
 \itemize{
-  \item \code{b0}: Gene-by-platform matrix of intercepts.
-  \item \code{b1}: Gene-by-platform matrix of slopes.
-  \item \code{Beta}: Covariate coefficient matrix (if \code{X} is provided).
-  \item \code{U}: Estimated eigenvector matrix for latent structure.
-  \item \code{dd}: Estimated eigenvalues (squared singular values).
-  \item \code{varprops}: Cumulative variance proportions explained by latent factors.
-  \item \code{sigmaU2s}: Gene-specific latent variances.
-  \item \code{sigma2s}: Gene-specific residual variances.
-  \item \code{N}: Number of samples.
-  \item \code{K}: Number of platforms.
-  \item \code{low.var.genes}: Indices of genes removed due to low variance.
+\item \code{b0}: Gene-by-platform matrix of intercepts.
+\item \code{b1}: Gene-by-platform matrix of slopes.
+\item \code{Beta}: Covariate coefficient matrix (if \code{X} is provided).
+\item \code{U}: Estimated eigenvector matrix for latent structure.
+\item \code{dd}: Estimated eigenvalues (squared singular values).
+\item \code{varprops}: Cumulative variance proportions explained by latent factors.
+\item \code{sigmaU2s}: Gene-specific latent variances.
+\item \code{sigma2s}: Gene-specific residual variances.
+\item \code{N}: Number of samples.
+\item \code{K}: Number of platforms.
+\item \code{low.var.genes}: Indices of genes removed due to low variance.
 }
 }
 \description{
@@ -44,10 +44,10 @@ Handles genes with both sufficient and insufficient variance separately. Acts as
 }
 \details{
 \itemize{
-  \item Genes with low variance (\code{rowVars(Y)} below \code{min.sigma2} across all platforms) are assigned simple defaults.
-  \item For genes with sufficient variance, full initialization is performed using \code{InitEst.LargeSTD()}.
-  \item Covariate matrix \code{X} is automatically coerced to a matrix if necessary.
-  \item If latent factors are not identified (e.g., \code{L = 0}), the returned \code{U} will be \code{NULL}.
+\item Genes with low variance (\code{rowVars(Y)} below \code{min.sigma2} across all platforms) are assigned simple defaults.
+\item For genes with sufficient variance, full initialization is performed using \code{InitEst.LargeSTD()}.
+\item Covariate matrix \code{X} is automatically coerced to a matrix if necessary.
+\item If latent factors are not identified (e.g., \code{L = 0}), the returned \code{U} will be \code{NULL}.
 }
 }
 \examples{

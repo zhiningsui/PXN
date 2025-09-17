@@ -29,10 +29,10 @@ epca(
 \value{
 A list containing:
 \describe{
-  \item{\code{values}}{A numeric vector of eigenvalues scaled by \(1 / (n - 1)\).}
-  \item{\code{vectors}}{A matrix of principal component directions (eigenvectors). Columns are named \code{"PC1"}, \code{"PC2"}, etc.}
-  \item{\code{x}}{(If \code{retx = TRUE}) The principal component scores matrix.}
-  \item{\code{var.props}}{A numeric vector of cumulative variance proportions explained by the components.}
+\item{\code{values}}{A numeric vector of eigenvalues scaled by \(1 / (n - 1)\).}
+\item{\code{vectors}}{A matrix of principal component directions (eigenvectors). Columns are named \code{"PC1"}, \code{"PC2"}, etc.}
+\item{\code{x}}{(If \code{retx = TRUE}) The principal component scores matrix.}
+\item{\code{var.props}}{A numeric vector of cumulative variance proportions explained by the components.}
 }
 }
 \description{

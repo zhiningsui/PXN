@@ -15,13 +15,13 @@ gradLoglik(X, Y, K, params, b1_min = 0.1)
 
 \item{params}{A list containing model parameters:
 \itemize{
-  \item \code{b0}: Vector of intercepts (length \code{m}).
-  \item \code{b1}: Vector of slopes (length \code{m}).
-  \item \code{Beta}: Coefficient matrix for covariates (optional).
-  \item \code{U}: Eigenvector matrix for latent structure.
-  \item \code{dd}: Corresponding eigenvalues.
-  \item \code{sigmaU2s}: Latent platform-specific variances.
-  \item \code{sigma2s}: Residual variances.
+\item \code{b0}: Vector of intercepts (length \code{m}).
+\item \code{b1}: Vector of slopes (length \code{m}).
+\item \code{Beta}: Coefficient matrix for covariates (optional).
+\item \code{U}: Eigenvector matrix for latent structure.
+\item \code{dd}: Corresponding eigenvalues.
+\item \code{sigmaU2s}: Latent platform-specific variances.
+\item \code{sigma2s}: Residual variances.
 }}
 
 \item{b1_min}{Numeric. Minimum allowed value for \code{b1} to avoid division by zero or \code{log(0)} errors. Defaults to \code{0.1}.}
@@ -37,9 +37,9 @@ Designed for models of stacked domain-specific data with optional covariates.
 }
 \details{
 \itemize{
-  \item Only the derivatives with respect to \code{b1} are computed.
-  \item The structure of \code{Y} is assumed to match the stacking: \code{[Domain1; Domain2; ...; DomainK]}.
-  \item Uses efficient array manipulations and precomputes cross-term matrices for gradient stability.
+\item Only the derivatives with respect to \code{b1} are computed.
+\item The structure of \code{Y} is assumed to match the stacking: \code{[Domain1; Domain2; ...; DomainK]}.
+\item Uses efficient array manipulations and precomputes cross-term matrices for gradient stability.
 }
 }
 \examples{

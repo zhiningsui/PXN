@@ -26,9 +26,9 @@ or small singular values, which commonly arise in regression problems.
 }
 \details{
 \itemize{
-  \item If \code{X} is a row or column vector, closed-form stabilized solutions are computed directly.
-  \item For full-rank matrices, SVD-based inversion with regularized singular values is applied.
-  \item The function avoids division by small or zero singular values by applying a threshold capped between \code{dmin} and \code{dmax}.
+\item If \code{X} is a row or column vector, closed-form stabilized solutions are computed directly.
+\item For full-rank matrices, SVD-based inversion with regularized singular values is applied.
+\item The function avoids division by small or zero singular values by applying a threshold capped between \code{dmin} and \code{dmax}.
 }
 }
 \examples{
