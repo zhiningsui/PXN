@@ -53,50 +53,113 @@
 #' @export
 InitEst <- function(X, Y, K, L, min.sigma2=0.01, min.sigmaU2=0.05, p.correct=TRUE){
   # In the case when there is only one covariate and X is not a matrix.
-  if((!is.null(X)) & (!is.matrix(X))) {
+  if (!is.null(X) && !is.matrix(X)) {
     X <- matrix(X, nrow = 1)
   }
-  N <- ncol(Y); m <- nrow(Y)/K
+
+  N <- ncol(Y)
+  m <- nrow(Y) / K
+
   ## use gene names of Y if available
   gnames <- rownames(Y)[1:m]
   ## remove genes with very small STD
-  varY <- matrix(rowVars(Y), ncol=K)
-  ids1 <- rowMins(varY)>=min.sigma2 #genes with large STD
+  varY <- matrix(rowVars(Y), ncol = K)
+  ids1 <- rowMins(varY, value = TRUE) >= min.sigma2  # genes with large STD
   low.var.genes <- which(!ids1)
+
   ## the main part
-  Y2 <- Y[rep(ids1, K),]
+  # keep only high-variance genes in all K stacked submatrices
+  Y2 <- Y[rep(ids1, K), , drop = FALSE]
+
+  # Added by Zhining 02/27/2026 ---
+  gnames_keep <- gnames[ids1]
+  m_keep <- sum(ids1)
+  # ---
+
   initEst1 <- InitEst.LargeSTD(X, Y2, K, L, min.sigma2=min.sigma2, min.sigmaU2=min.sigmaU2, p.correct=p.correct)
   ## initEst1 <- InitEst.LargeSTD.old(X, Y2, K, L, min.sigmaU2=min.sigmaU2)
-  ## Combine the simple estimators for genes with very small STD and
-  ## all other genes
-  b0 <- matrix(rowmeans(Y), ncol=K); b1 <- matrix(0, m, K)
-  rownames(b0) <- rownames(b1) <- gnames
+
+  # Edited by Zhining 02/27/2026 ---
+  # ## Combine the simple estimators for genes with very small STD and
+  # ## all other genes
+  # b0 <- matrix(rowmeans(Y), ncol=K); b1 <- matrix(0, m, K)
+  # rownames(b0) <- rownames(b1) <- gnames
+  # colnames(b0) <- colnames(b1) <- paste0("Platform", 1:K)
+  # b1[ids1,] <- initEst1$b1
+  # ## estimate beta matrix
+  # if (is.null(X)) {
+  #   Beta <- NULL
+  # } else {
+  #   Beta <- matrix(0, m, nrow(X))
+  #   rownames(Beta) <- gnames; colnames(Beta) <- rownames(X)
+  # }
+  # Beta[ids1,] <- initEst1[["Beta"]]
+  # ## other parameters. Note that due to collinearity, U produced by
+  # ## InitEst.LargeSTD() may have less than L columns
+  # U0 <- initEst1$U
+  # if (is.null(U0)) { #this could happen when L==0
+  #   U <- NULL
+  # } else {
+  #   U <- matrix(0, m, ncol(U0))
+  #   rownames(U) <- gnames; colnames(U) <- colnames(U0)
+  #   U[ids1,] <- initEst1$U
+  # }
+  # dd <- initEst1$dd
+  # varprops <- initEst1$varprops
+  # sigmaU2s <- rep(1, m); names(sigmaU2s) <- gnames
+  # sigmaU2s[ids1] <- initEst1$sigmaU2s
+  # sigma2s <- rep(0, m); names(sigma2s) <- gnames
+  # sigma2s[ids1] <- initEst1$sigma2s
+
+  ## combine estimators for retained genes only
+  b0 <- matrix(rowmeans(Y2), ncol = K)
+  b1 <- matrix(0, m_keep, K)
+  rownames(b0) <- rownames(b1) <- gnames_keep
   colnames(b0) <- colnames(b1) <- paste0("Platform", 1:K)
-  b1[ids1,] <- initEst1$b1
+  b1[,] <- initEst1$b1
+
+  # b0 <- matrix(rowmeans(Y), ncol = K)
+  # b1 <- matrix(0, m, K)
+  # rownames(b0) <- rownames(b1) <- gnames
+  # colnames(b0) <- colnames(b1) <- paste0("Platform", 1:K)
+  # gnames_ids1 = gnames[ids1]
+  # m_ids1 = sum(ids1)
+  # b0 <- b0[gnames_ids1,]; b1 <- b1[gnames_ids1,]
+  # b1[gnames_ids1,] <- initEst1$b1
+
   ## estimate beta matrix
   if (is.null(X)) {
     Beta <- NULL
   } else {
-    Beta <- matrix(0, m, nrow(X))
-    rownames(Beta) <- gnames; colnames(Beta) <- rownames(X)
+    Beta <- matrix(0, m_keep, nrow(X))
+    rownames(Beta) <- gnames_keep
+    colnames(Beta) <- rownames(X)
+    Beta[,] <- initEst1$Beta
   }
-  Beta[ids1,] <- initEst1[["Beta"]]
   ## other parameters. Note that due to collinearity, U produced by
   ## InitEst.LargeSTD() may have less than L columns
   U0 <- initEst1$U
   if (is.null(U0)) { #this could happen when L==0
     U <- NULL
   } else {
-    U <- matrix(0, m, ncol(U0))
-    rownames(U) <- gnames; colnames(U) <- colnames(U0)
-    U[ids1,] <- initEst1$U
+    U <- matrix(0, m_keep, ncol(U0))
+    rownames(U) <- gnames_keep
+    colnames(U) <- colnames(U0)
+    U[,] <- U0
   }
   dd <- initEst1$dd
   varprops <- initEst1$varprops
-  sigmaU2s <- rep(1, m); names(sigmaU2s) <- gnames
-  sigmaU2s[ids1] <- initEst1$sigmaU2s
-  sigma2s <- rep(0, m); names(sigma2s) <- gnames
-  sigma2s[ids1] <- initEst1$sigma2s
+
+  sigmaU2s <- rep(NA, m_keep)
+  names(sigmaU2s) <- gnames_keep
+  sigmaU2s[] <- initEst1$sigmaU2s
+
+  sigma2s <- rep(NA, m_keep)
+  names(sigma2s) <- gnames_keep
+  sigma2s[] <- initEst1$sigma2s
+
+  # ---
+
   return(list(b0=b0, b1=b1, Beta=Beta, U=U, dd=dd, varprops=varprops,
               sigmaU2s=sigmaU2s, sigma2s=sigma2s, N=N, K=K, low.var.genes=low.var.genes))
 }

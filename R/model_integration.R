@@ -131,9 +131,10 @@ ModIntegrate <- function(modList, Xlist=NULL, Ylist, PairList) {
   ww <- Ns/sum(Ns)
   sigma2s <- drop(sigma2mat%*%ww)
   sigmaU2s <- drop(sigmaU2mat%*%ww)
-  ## dd
-  ddmat <- sapply(dds, function(ds) ds[1:L])
-  dd <- drop(ddmat%*%ww)
+  # Edited by Zhining 02/08/2026, move dd to later to handle with L=0
+  # ## dd
+  # ddmat <- sapply(dds, function(ds) ds[1:L])
+  # dd <- drop(ddmat%*%ww)
   ## Beta
   if (any(sapply(Betas, is.null))) {
     Betahat <- NULL
@@ -169,6 +170,10 @@ ModIntegrate <- function(modList, Xlist=NULL, Ylist, PairList) {
   if (L==0) {                         #do not compute U and dd
     U <- dd <- varprops <- NULL
   } else {
+    ## dd moved here by Zhining 02/08/2026
+    ddmat <- sapply(dds, function(ds) ds[1:L])
+    dd <- drop(ddmat%*%ww)
+
     ## use the combined Ycircbars to estimate U and dd
     Ycircbars <- Reduce("cbind", lapply(1:G, function(g) {
       Yg <- Ylist[[g]]
@@ -203,12 +208,15 @@ ModIntegrate <- function(modList, Xlist=NULL, Ylist, PairList) {
   }
   ## Final step: add row/column names to the output. Note that both
   ## b0 and b1 are matrices, not long vectors
-  rownames(b0) <- rownames(b1) <- rownames(U)  <- names(sigmaU2s)  <- names(sigma2s) <- gnames
+  rownames(b0) <- rownames(b1) <- names(sigmaU2s)  <- names(sigma2s) <- gnames
+  if (!is.null(U)) { # Edited by Zhining 02/08/2026
+    rownames(U) <- gnames 
+    colnames(U) <- paste0("PC", 1:ncol(U))
+  }
   if (!is.null(Betahat)) {
     # rownames(Betahat) <- gnames; colnames(Betahat) <- rownames(Xs[[1]])
     rownames(Betahat) <- gnames; colnames(Betahat) <- rownames(Xlist[[1]])
   }
-  colnames(U) <- paste0("PC", 1:ncol(U))
   return(list(b0=b0, b1=b1, Beta=Betahat, U=U, dd=dd, varprops=varprops,
               sigma2s=sigma2s, sigmaU2s=sigmaU2s, Ns=Ns0, Ks=Ks))
 }

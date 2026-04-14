@@ -167,7 +167,7 @@ gradLoglik <- function(X, Y, K, params, b1_min=.1){
   ## M: eq:M-def
   M <- solve(D2inv +diag(nrow=L) -t(U)%*%(U*hh))
   U2 <- U*(sqrt(sigmaU2s)/(K*sigmaU2s+sigma2s))
-  F <- Ycircbar*(sigmaU2s/(sigma2s*(K*sigmaU2s+sigma2s))) +(U2%*%M)%*%(t(U2)%*%Ycircbar)
+  F <- Ycircbar*(sigmaU2s/(sigma2s*(K*sigmaU2s+sigma2s))) + (U2%*%M)%*%(t(U2)%*%Ycircbar)
   ## only produce the gradients for b1 based on eq:grad-b1. .
   Second <- Ycirc/rep(sigma2s,K) -K*(rep(1,K)%x%F)
   grad.b1 <- -N/b1 +rowsums((Y-b0)*Second)/b1^2
@@ -305,7 +305,14 @@ GDfun <- function(X, Y, K, params, platforms=NULL,
 
   b1 <- params$b1; U <- params$U; dd <- params$dd
   sigmaU2s <- params$sigmaU2s; sigma2s <- params$sigma2s
+  gnames_params <- rownames(b1)
+
+  # Added by Zhining 02/27/2026 ---
+  idx <- which(rownames(Y) %in% gnames_params)
+  Y <- Y[idx, , drop = FALSE]
+  # ---
   N <- ncol(Y); m <- nrow(Y)/K;  L <- length(dd)
+
   ## If there are no U and dd (means that L=0), we do not do any
   ## gradient descend, and just return the params.
   if (is.null(U)) {
@@ -317,6 +324,8 @@ GDfun <- function(X, Y, K, params, platforms=NULL,
   }
   ## use genenames names of covariates if available
   gnames <- rownames(Y)[1:m]
+  stopifnot(all.equal(gnames_params, gnames))
+
   ## assign/compute the initial parameters
   b0 <- rowmeans(Y)
   b1.old <- as.vector(b1)
