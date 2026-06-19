@@ -145,6 +145,88 @@ fit <- InitEst(X = X, Y = Y, K = 2, L = 1)
 names(fit)
 ```
 
+## Test Dataset and Example Run
+
+The repository includes a small simulated test dataset for trying PXN end to
+end:
+
+- Expression data: [`data/sim_expres.rda`](data/sim_expres.rda)
+- Covariate data: [`data/sim_covars.rda`](data/sim_covars.rda)
+
+The same data are installed with the package, so you usually do not need to
+download the files manually. Load them in R with `data("sim_expres")` and
+`data("sim_covars")`.
+
+Input:
+
+- `sim_expres$AB`: stacked expression matrix for platforms A and B. Rows are
+  genes/features, columns are samples, with A rows followed by B rows.
+- `sim_covars$AB`: covariate matrix for the same AB samples. Columns must match
+  the expression sample columns.
+- `K = 2`: number of platforms in `sim_expres$AB`.
+- `L = 1`: latent dimension used in this small test run.
+
+Output:
+
+- `fit`: trained PXN model parameters returned by `InitEst()`.
+- `YB_pred`: predicted platform-B expression for held-out samples measured on
+  platform A.
+- `mse`: mean squared error comparing `YB_pred` with the held-out true platform-B
+  expression.
+
+Run the method on the test dataset:
+
+```r
+library(PXN)
+
+data("sim_expres")
+data("sim_covars")
+
+# Use 100 genes and 20 samples so the example runs quickly.
+m_total <- nrow(sim_expres$AB) / 2
+genes <- 1:100
+sample_ids <- 1:20
+
+Y_AB <- sim_expres$AB[c(genes, m_total + genes), sample_ids, drop = FALSE]
+X_AB <- sim_covars$AB[, sample_ids, drop = FALSE]
+
+# Hold out the last 4 samples for A-to-B prediction.
+m <- length(genes)
+test_idx <- 17:20
+train_idx <- setdiff(seq_along(sample_ids), test_idx)
+
+Y_train <- Y_AB[, train_idx, drop = FALSE]
+X_train <- X_AB[, train_idx, drop = FALSE]
+
+YA_test <- Y_AB[1:m, test_idx, drop = FALSE]
+YB_true <- Y_AB[(m + 1):(2 * m), test_idx, drop = FALSE]
+X_test <- X_AB[, test_idx, drop = FALSE]
+
+fit <- InitEst(X = X_train, Y = Y_train, K = 2, L = 1)
+
+# Align held-out data to genes retained by InitEst().
+retained_genes <- rownames(fit$b0)
+YA_test <- YA_test[retained_genes, , drop = FALSE]
+YB_true <- YB_true[retained_genes, , drop = FALSE]
+
+YB_pred <- Prediction(
+  Ysource = YA_test,
+  X = X_test,
+  trained.model = fit,
+  k.source = 1,
+  k.target = 2
+)
+
+mse <- mean((YB_pred - YB_true)^2)
+
+dim(YB_pred)
+mse
+```
+
+For this subset, `YB_pred` is a numeric matrix with retained genes as rows and
+the 4 held-out samples as columns. The scalar `mse` summarizes prediction error
+on the same held-out samples.
+
 ### Optional Dependencies
 
 These packages are not required to use PXN, but they support documentation,
