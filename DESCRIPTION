@@ -2,7 +2,7 @@ Package: PXN
 Type: Package
 Title: Cross-Platform Normalization and Prediction via PPCA (PXN)
 Version: 0.1.0
-Authors@R: c(person("Zhining","Sui", role=c("aut","cre"), email="you@email"))
+Authors@R: c(person("Zhining", "Sui", role = c("aut", "cre"), email = "zhiningsui@users.noreply.github.com"))
 Description: Implements a probabilistic principal component analysis (PPCA) based model for normalizing data from multiple platforms. This package is particularly useful for integrating and normalizing high-dimensional biological data, such as gene expression data from different microarray or sequencing platforms. It provides functions for model training, prediction, and evaluation, including cross-validation and parameter estimation.
 URL: https://zhiningsui.github.io/PXN, https://github.com/zhiningsui/PXN
 BugReports: https://github.com/zhiningsui/PXN/issues
@@ -15,8 +15,8 @@ Imports:
     stats,
     graphics,
     limma,
-    matrixStats,
-    grDevices
+    grDevices,
+    parallel
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Depends: R (>= 4.1)

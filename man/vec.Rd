@@ -7,7 +7,9 @@
 vec(x, mode = "any")
 }
 \arguments{
-\item{M}{A numeric matrix.}
+\item{x}{A numeric matrix.}
+
+\item{mode}{Character. Coercion mode passed to \code{\link[base]{as.vector}}.}
 }
 \value{
 A numeric vector.

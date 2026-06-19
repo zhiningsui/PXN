@@ -34,5 +34,5 @@ image(H)
 
 }
 \seealso{
-\code{\link[stats]{lm}}, \code{\link[stats]{svd}}
+\code{\link[stats]{lm}}, \code{\link[base]{svd}}
 }

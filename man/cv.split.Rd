@@ -22,7 +22,7 @@ The function ensures folds are randomly ordered and differ in size by at most on
 The function ensures:
 \itemize{
 \item Fold sizes differ by at most one.
-\item Samples are randomly shuffled using \code{\link[stats]{sample}}.
+\item Samples are randomly shuffled using \code{\link[base]{sample}}.
 }
 }
 \examples{
@@ -33,5 +33,5 @@ unlist(folds)          # Verify all indices 1:23 are included
 
 }
 \seealso{
-\code{\link[stats]{sample}} for random permutation.
+\code{\link[base]{sample}} for random permutation.
 }

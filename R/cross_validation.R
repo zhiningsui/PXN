@@ -12,7 +12,7 @@
 #' The function ensures:
 #' \itemize{
 #'   \item Fold sizes differ by at most one.
-#'   \item Samples are randomly shuffled using \code{\link[stats]{sample}}.
+#'   \item Samples are randomly shuffled using \code{\link[base]{sample}}.
 #' }
 #'
 #' @examples
@@ -21,7 +21,7 @@
 #' sapply(folds, length)  # Check fold sizes (e.g., 5, 5, 5, 4, 4)
 #' unlist(folds)          # Verify all indices 1:23 are included
 #'
-#' @seealso \code{\link[stats]{sample}} for random permutation.
+#' @seealso \code{\link[base]{sample}} for random permutation.
 #'
 #' @export
 cv.split <- function(N, n.folds=5) {

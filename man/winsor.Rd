@@ -27,7 +27,7 @@ data, intensity profiles, or any other high-dimensional numeric matrix.
 \itemize{
 \item Missing values are imputed using the row-wise median (ignoring \code{NA}s).
 \item For each row, a trimmed mean and standard deviation are computed using central values (controlled by \code{trim}).
-\item Values outside the \code{mean ± n.std × sd} range are winsorized to the nearest in-range value.
+\item Values outside the \code{mean +/- n.std * sd} range are winsorized to the nearest in-range value.
 \item Uses fast row-wise operations from the \pkg{Rfast} package.
 }
 }

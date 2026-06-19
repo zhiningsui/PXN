@@ -20,7 +20,7 @@
 #' H <- rhat(X)
 #' image(H)
 #'
-#' @seealso \code{\link[stats]{lm}}, \code{\link[stats]{svd}}
+#' @seealso \code{\link[stats]{lm}}, \code{\link[base]{svd}}
 #' @export
 rhat <- function(X, d.prop=1e-6, dmin=1e-9) {
   N <- nrow(X); o <- svd(X)
@@ -61,7 +61,7 @@ rhat <- function(X, d.prop=1e-6, dmin=1e-9) {
 #' inv_xtx <- rsolve2(X)
 #' all.equal(inv_xtx, solve(crossprod(X)), tolerance = 1e-3)  # Should be close
 #'
-#' @seealso \code{\link[base]{solve}}, \code{\link{rhat}}, \code{\link[stats]{svd}}
+#' @seealso \code{\link[base]{solve}}, \code{\link{rhat}}, \code{\link[base]{svd}}
 #'
 #' @export
 rsolve2 <- function(X, d.prop=1e-6, dmin=1e-9, dmax=1e9){
@@ -126,6 +126,8 @@ ameans <- function(a, i) {
 #' @param ... Additional arguments passed to \code{image()}.
 #'
 #' @return None. Produces a plot.
+#' @importFrom graphics image
+#' @importFrom grDevices grey
 #' @export
 mplot <- function(mat, ...) image(t(mat[nrow(mat):1,]), col=grey(seq(1, 0, length.out=101)), xaxt="n", yaxt="n", ...)
 
@@ -143,7 +145,8 @@ tr <- function(M) sum(diag(as.matrix(M)))
 #'
 #' Converts a matrix to a column-major vector.
 #'
-#' @param M A numeric matrix.
+#' @param x A numeric matrix.
+#' @param mode Character. Coercion mode passed to \code{\link[base]{as.vector}}.
 #'
 #' @return A numeric vector.
 #' @export

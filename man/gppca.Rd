@@ -66,5 +66,5 @@ plot(res$dd, type = "b", main = "Generalized Eigenvalues")
 
 }
 \seealso{
-\code{\link{epca}}, \code{\link[stats]{prcomp}}, \code{\link[stats]{svd}}
+\code{\link{epca}}, \code{\link[stats]{prcomp}}, \code{\link[base]{svd}}
 }

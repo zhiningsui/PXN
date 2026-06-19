@@ -56,5 +56,5 @@ plot(result$values, type = "b", main = "Eigenvalues")
 
 }
 \seealso{
-\code{\link[Rfast]{hd.eigen}}, \code{\link[stats]{prcomp}}, \code{\link[stats]{eigen}}
+\code{\link[Rfast]{hd.eigen}}, \code{\link[stats]{prcomp}}, \code{\link[base]{eigen}}
 }

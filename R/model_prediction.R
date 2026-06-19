@@ -143,7 +143,7 @@ Prediction <- function(Ysource, X, trained.model, k.source=1, k.target=2, b1_min
 #' trained.model <- list(betamat = cbind(Intercept = rnorm(4), Slope = runif(4, 0.5, 1.5)))
 #' Ytarget <- predict_MM(Ysource, trained.model)
 #'
-#' @seealso \code{\link{lm}}, \code{\link{normalize.crossplatform}}
+#' @seealso \code{\link[stats]{lm}}
 #'
 #' @export
 predict_MM <- function(Ysource, trained.model) {

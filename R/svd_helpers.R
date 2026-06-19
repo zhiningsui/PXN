@@ -77,7 +77,7 @@ fsvd0 <- function(X, k=min(nrow(X), ncol(X)), tol=1e-6) {
 #' plot(result$values, type = "b", main = "Eigenvalues")
 #' }
 #'
-#' @seealso \code{\link[Rfast]{hd.eigen}}, \code{\link[stats]{prcomp}}, \code{\link[stats]{eigen}}
+#' @seealso \code{\link[Rfast]{hd.eigen}}, \code{\link[stats]{prcomp}}, \code{\link[base]{eigen}}
 #'
 #' @importFrom Rfast eachrow colVars transpose Crossprod submatrix mat.mult colmeans
 #' @export
@@ -162,7 +162,7 @@ epca <- function(x, center=TRUE, scale=FALSE, retx=TRUE, k=min(nrow(x), ncol(x))
 #' plot(res$dd, type = "b", main = "Generalized Eigenvalues")
 #' }
 #'
-#' @seealso \code{\link{epca}}, \code{\link[stats]{prcomp}}, \code{\link[stats]{svd}}
+#' @seealso \code{\link{epca}}, \code{\link[stats]{prcomp}}, \code{\link[base]{svd}}
 #'
 #' @importFrom Rfast eachrow colVars colsums transpose Crossprod submatrix mat.mult colmeans
 #' @export
@@ -254,4 +254,3 @@ gppca <- function(Y, center=TRUE, scale=FALSE, retx=TRUE, L=min(nrow(Y), ncol(Y)
   }
   return(list(U=U, dd=dd, sigma2s=sigma2s, history=history))
 }
-

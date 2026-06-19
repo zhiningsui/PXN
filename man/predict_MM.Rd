@@ -32,5 +32,5 @@ Ytarget <- predict_MM(Ysource, trained.model)
 
 }
 \seealso{
-\code{\link{lm}}, \code{\link{normalize.crossplatform}}
+\code{\link[stats]{lm}}
 }

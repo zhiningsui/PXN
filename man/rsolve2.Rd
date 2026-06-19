@@ -38,5 +38,5 @@ all.equal(inv_xtx, solve(crossprod(X)), tolerance = 1e-3)  # Should be close
 
 }
 \seealso{
-\code{\link[base]{solve}}, \code{\link{rhat}}, \code{\link[stats]{svd}}
+\code{\link[base]{solve}}, \code{\link{rhat}}, \code{\link[base]{svd}}
 }
